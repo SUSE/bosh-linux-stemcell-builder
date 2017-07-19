@@ -52,6 +52,8 @@ touch ${chroot}/etc/gshadow
 mkdir -p $chroot/etc/service/
 
 run_in_chroot $chroot "
+  ln -s /etc/sv /service
+
   # Enable nf_conntrack module
   echo "nf_conntrack" > /etc/modules-load.d/conntrack.conf
 "
