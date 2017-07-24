@@ -58,31 +58,7 @@ touch ${chroot}/etc/gshadow
 mkdir -p $chroot/etc/service/
 
 run_in_chroot $chroot "
-  # Install runit from sources
-  mkdir -p /package
-  chmod 1755 /package
-  cd /package
-
-  tar -xpf /tmp/runit-2.1.2.tar.gz
-  rm /tmp/runit-2.1.2.tar.gz
-
-  cd admin/runit-2.1.2
-  package/install
-
-  install -m0750 /package/admin/runit/etc/2 /sbin/runsvdir-start
   ln -s /etc/sv /service
-
-  # Setup links for runit to /usr/bin so that monit can start it (it only sets up a very basic
-  # PATH env variable which doesn't include /usr/local/bin
-  ln -s /usr/local/bin/chpst /usr/bin
-  ln -s /usr/local/bin/runit /usr/bin
-  ln -s /usr/local/bin/runit-init /usr/bin
-  ln -s /usr/local/bin/runsv /usr/bin
-  ln -s /usr/local/bin/runsvchdir /usr/bin
-  ln -s /usr/local/bin/runsvdir /usr/bin
-  ln -s /usr/local/bin/sv /usr/bin
-  ln -s /usr/local/bin/svlogd /usr/bin
-  ln -s /usr/local/bin/utmpset /usr/bin
 
   # Enable nf_conntrack module
   echo "nf_conntrack" > /etc/modules-load.d/conntrack.conf
