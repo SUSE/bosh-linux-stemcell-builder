@@ -65,15 +65,15 @@ run_in_chroot $chroot "
 "
 
 # Setting locale
-case "${stemcell_operating_system_version}" in
-  "leap")
+#case "${stemcell_operating_system_version}" in
+#  "leap")
     locale_file=/etc/locale.conf
-    ;;
-  *)
-    echo "Unknown openSUSE release: ${stemcell_operating_system_version}"
-    exit 1
-    ;;
-esac
+#    ;;
+#  *)
+#    echo "Unknown openSUSE release: ${stemcell_operating_system_version}"
+#    exit 1
+#    ;;
+#esac
 
 echo "LANG=\"en_US.UTF-8\"" >> ${chroot}/${locale_file}
 

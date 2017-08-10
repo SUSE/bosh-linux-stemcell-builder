@@ -45,7 +45,7 @@ module Bosh::Stemcell
 
     class Opensuse < Base
       def initialize(version)
-        super(name: 'opensuse', version: version)
+        super(name: 'sles', version: '12sp3')
       end
     end
 
