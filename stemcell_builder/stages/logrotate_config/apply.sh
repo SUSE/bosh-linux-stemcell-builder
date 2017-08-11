@@ -5,8 +5,11 @@ set -e
 base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
 
+# FIXME
 #mv $chroot/etc/cron.daily/logrotate $chroot/usr/bin/logrotate-cron
-
+# logrotate package in sles12sp2 (and other versions before that) had this cron.daily
+# file created automatically. It seems its no longer the case for the version in sles12sp3.
+# We need to fix this in a better way for a proper solution.
 cat <<'LOGROTATE_CRON' > $chroot/usr/bin/logrotate-cron
 #!/bin/sh
 
