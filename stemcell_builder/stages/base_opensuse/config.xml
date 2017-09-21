@@ -23,11 +23,17 @@
     <users group="root">
         <user password="$1$wYJUgpM5$RXMMeASDc035eX.NbYWFl0" home="/root" name="root"/>
     </users>
-    <repository type="yast2" imageinclude="true" priority="1000">
-        <source path="http://dist.suse.de/full/full-sle12-sp3-x86_64/"/>
+    <repository type="rpm-md" imageinclude="true" priority="1000">
+        <source path="http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-SERVER/12-SP3/x86_64/product/"/>
     </repository>
     <repository type="rpm-md" imageinclude="true" priority="1000">
-        <source path="http://dist.suse.de/ibs/SUSE/Updates/SLE-SERVER/12-SP3/x86_64/update/"/>
+      <source path="http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SERVER/12-SP3/x86_64/update/"/>
+    </repository>
+    <repository type="rpm-md" imageinclude="true" priority="1000">
+        <source path="http://smt-internal.opensuse.org/repo/$RCE/SUSE/Products/SLE-SDK/12-SP3/x86_64/product/"/>
+    </repository>
+    <repository type="rpm-md" imageinclude="true" priority="1000">
+      <source path="http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SDK/12-SP3/x86_64/update/"/>
     </repository>
     <repository type="rpm-md" imageinclude="true" priority="1000">
       <source path="http://download.opensuse.org/repositories/security:/apparmor/SLE_12/"/>
