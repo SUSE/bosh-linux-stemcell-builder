@@ -3,7 +3,7 @@
 base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
 
-if [ "$(get_os_type)" == "opensuse" ]; then
+if [ "$(get_os_type)" == "opensuse" -o "$(get_os_type)" == "sles" ]; then
   partitioner_type="\"PartitionerType\": \"parted\","
 fi
 

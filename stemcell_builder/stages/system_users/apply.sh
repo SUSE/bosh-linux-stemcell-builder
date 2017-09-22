@@ -5,7 +5,7 @@ set -e
 base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
 
-if [ $(get_os_type) == "opensuse" ] ; then
+if [ $(get_os_type) == "opensuse" -o $(get_os_type) == "sles" ] ; then
   run_in_chroot $chroot "
     for i in bin daemon lp news uucp games man ftp syslog; do
       usermod -s /bin/false \\\$i

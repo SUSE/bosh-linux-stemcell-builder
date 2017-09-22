@@ -18,7 +18,7 @@ auto lo
 iface lo inet loopback
 EOS
 
-elif [ -d "$chroot/etc/sysconfig/network" ]; then # openSUSE
+elif [ -d "$chroot/etc/sysconfig/network" ]; then # openSUSE || SLES
   :
 elif [ -e "$chroot/etc/sysconfig/network" ]; then # centos
   cat >> $chroot/etc/sysconfig/network <<EOS

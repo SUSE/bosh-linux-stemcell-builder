@@ -30,7 +30,7 @@ if [ "$(get_os_type)" == "centos" ]; then
 
   strip_trailing_whitespace_from $chroot/etc/pam.d/system-auth
   patch $chroot/etc/pam.d/system-auth < $assets_dir/centos/system-auth.patch
-elif [ "$(get_os_type)" == "opensuse" ]; then
+elif [ "$(get_os_type)" == "opensuse" -o "$(get_os_type)" == "sles" ]; then
   rm $chroot/etc/pam.d/common-password.pam-config-backup
 
   mv $chroot/etc/pam.d/common-account-pc $chroot/etc/pam.d/common-account

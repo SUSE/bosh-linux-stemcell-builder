@@ -8,7 +8,7 @@ base_dir=$(readlink -nf $(dirname $0)/../..)
 source $base_dir/lib/prelude_apply.bash
 
 # Install grub or grub2
-if [ $(get_os_type) == "opensuse" ] ; then
+if [ $(get_os_type) == "opensuse" -o $(get_os_type) == "sles" ] ; then
   preferred=grub2
   fallback=grub
 else

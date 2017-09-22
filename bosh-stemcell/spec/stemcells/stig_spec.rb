@@ -151,6 +151,11 @@ describe 'Stig test case verification', { stemcell_image: true, security_spec: t
         expected_stig_test_cases = expected_base_stig_test_cases + [
           'V-38586'
         ]
+      
+      when 'sles'
+        expected_stig_test_cases = expected_base_stig_test_cases + [
+          'V-38586'
+        ]
     end
 
     expected_stig_test_cases = expected_stig_test_cases.reject do |stig|

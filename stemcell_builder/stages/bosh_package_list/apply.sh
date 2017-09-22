@@ -23,7 +23,7 @@ elif [ "${stemcell_operating_system}" == "centos" ]; then
   # Export list in stemcell tarball
   cp $chroot/$bosh_dir/stemcell_rpm_qa.out $work/stemcell/stemcell_rpm_qa.txt
 
-elif [ "${stemcell_operating_system}" == "opensuse" ]; then
+elif [ "${stemcell_operating_system}" == "opensuse" -o "${stemcell_operating_system}" == "sles" ]; then
    # Create list of installed packages
   run_in_bosh_chroot $chroot "rpm -qa > stemcell_rpm_qa.out"
 

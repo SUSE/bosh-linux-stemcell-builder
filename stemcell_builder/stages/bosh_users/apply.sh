@@ -35,11 +35,11 @@ cp $assets_dir/sudoers $chroot/etc/sudoers
 echo "export PATH=$bosh_dir/bin:\$PATH" >> $chroot/root/.bashrc
 echo "export PATH=$bosh_dir/bin:\$PATH" >> $chroot/home/vcap/.bashrc
 
-if [ "${stemcell_operating_system}" == "opensuse" ] ; then
+if [ "${stemcell_operating_system}" == "opensuse" -o "${stemcell_operating_system}" == "sles" ] ; then
   echo "export PATH=\$PATH:/sbin" >> $chroot/home/vcap/.bashrc
 fi
 
-if [ "${stemcell_operating_system}" == "centos" ] || [ "${stemcell_operating_system}" == "photonos" ] || [ "${stemcell_operating_system}" == "opensuse" ] ; then
+if [ "${stemcell_operating_system}" == "centos" ] || [ "${stemcell_operating_system}" == "photonos" ] || [ "${stemcell_operating_system}" == "opensuse" ] || [ "${stemcell_operating_system}" == "sles" ] ; then
   cat > $chroot/root/.profile <<EOS
 if [ "\$BASH" ]; then
   if [ -f ~/.bashrc ]; then
