@@ -7,7 +7,7 @@ source $base_dir/lib/prelude_apply.bash
 source $base_dir/etc/settings.bash
 
 rm -r $chroot
-kiwicompat --prepare $base_dir/stages/base_opensuse --root $chroot
+kiwicompat --prepare $base_dir/stages/base_sles --root $chroot
 
 cp /etc/resolv.conf $chroot/etc/resolv.conf
 cp $assets_dir/runit.service $chroot/usr/lib/systemd/system/
