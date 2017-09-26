@@ -22,11 +22,6 @@ run_in_chroot $chroot "
 sed -i 's/# installRecommends = yes/installRecommends = no/' /etc/zypp/zypper.conf
 zypper --gpg-auto-import-keys ref
 
-# systemd bug: https://bugzilla.suse.com/show_bug.cgi?id=1012818
-zypper ar http://download.opensuse.org/update/leap/42.2/oss/ update
-zypper -n --gpg-auto-import-keys in --from update systemd
-zypper -n rr update
-
 groupadd adm
 groupadd dip
 systemctl enable runit || true # TODO figure out why enable always returns non-zero exit code
@@ -65,16 +60,7 @@ run_in_chroot $chroot "
   echo "nf_conntrack" > /etc/modules-load.d/conntrack.conf
 "
 
-# Setting locale
-#case "${stemcell_operating_system_version}" in
-#  "leap")
-    locale_file=/etc/locale.conf
-#    ;;
-#  *)
-#    echo "Unknown openSUSE release: ${stemcell_operating_system_version}"
-#    exit 1
-#    ;;
-#esac
+locale_file=/etc/locale.conf
 
 echo "LANG=\"en_US.UTF-8\"" >> ${chroot}/${locale_file}
 

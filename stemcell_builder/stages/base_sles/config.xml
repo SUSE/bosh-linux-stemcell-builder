@@ -5,7 +5,7 @@
         <author>SUSE LINUX GmbH</author>
         <contact></contact>
         <specification>
-            Leap 42.2 minimal pattern based system
+           SLES 12 SP3 minimal pattern based system
         </specification>
     </description>
     <preferences>
