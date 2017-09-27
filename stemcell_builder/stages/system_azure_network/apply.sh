@@ -18,6 +18,13 @@ auto eth0
 iface eth0 inet dhcp
 EOS
 
+elif [ -d "$chroot/etc/sysconfig/network" ]; then # openSUSE
+  cat >> $chroot/etc/sysconfig/network/ifcfg-eth0 << EOS
+DEVICE=eth0
+BOOTPROTO=dhcp
+STARTMODE='auto'
+EOS
+
 elif [ -e "$chroot/etc/sysconfig/network" ]; then # centos
   cat >> $chroot/etc/sysconfig/network <<EOS
 NETWORKING=yes

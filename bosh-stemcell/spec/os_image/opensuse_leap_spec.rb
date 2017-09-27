@@ -148,4 +148,135 @@ describe 'openSUSE leap OS image', os_image: true do
     end
   end
 
+  describe 'allowed user accounts' do
+    describe file('/etc/passwd') do
+      it "only has login shells for root and vcap" do
+        passwd_match = Regexp.new <<'END_PASSWD', [Regexp::MULTILINE]
+bin:x:[1-9][0-9]*:[1-9][0-9]*+:bin:/bin:/bin/false
+daemon:x:[1-9][0-9]*:[1-9][0-9]*+:Daemon:/sbin:/bin/false
+ftp:x:[1-9][0-9]*:[1-9][0-9]*+:FTP account:/srv/ftp:/bin/false
+games:x:[1-9][0-9]*:[1-9][0-9]*+:Games account:/var/games:/bin/false
+lp:x:[1-9][0-9]*:[1-9][0-9]*+:Printing daemon:/var/spool/lpd:/bin/false
+mail:x:[1-9][0-9]*:[1-9][0-9]*+:Mailer daemon:/var/spool/clientmqueue:/bin/false
+man:x:[1-9][0-9]*:[1-9][0-9]*+:Manual pages viewer:/var/cache/man:/bin/false
+messagebus:x:[1-9][0-9]*:[1-9][0-9]*+:User for D-Bus:/run/dbus:/bin/false
+news:x:[1-9][0-9]*:[1-9][0-9]*+:News system:/etc/news:/bin/false
+nobody:x:[1-9][0-9]*:[1-9][0-9]*+:nobody:/var/lib/nobody:/bin/false
+ntp:x:[1-9][0-9]*:[1-9][0-9]*+:NTP daemon:/var/lib/ntp:/bin/false
+pesign:x:[1-9][0-9]*:[1-9][0-9]*+:PE-COFF signing daemon:/var/lib/pesign:/bin/false
+polkitd:x:[1-9][0-9]*:[1-9][0-9]*+:User for polkitd:/var/lib/polkit:/sbin/nologin
+root:x:0:0:root:/root:/bin/bash
+rpc:x:[1-9][0-9]*:[1-9][0-9]*+:user for rpcbind:/var/lib/empty:/sbin/nologin
+sshd:x:[1-9][0-9]*:[1-9][0-9]*+:SSH daemon:/var/lib/sshd:/bin/false
+syslog:x:[1-9][0-9]*:[1-9][0-9]*+::/home/syslog:/bin/false
+systemd-bus-proxy:x:[1-9][0-9]*:[1-9][0-9]*+:systemd Bus Proxy:/:/sbin/nologin
+systemd-timesync:x:[1-9][0-9]*:[1-9][0-9]*+:systemd Time Synchronization:/:/sbin/nologin
+uucp:x:[1-9][0-9]*:[1-9][0-9]*+:Unix-to-Unix CoPy system:/etc/uucp:/bin/false
+vcap:x:[1-9][0-9]*:[1-9][0-9]*+:BOSH System User:/home/vcap:/bin/bash
+wwwrun:x:[1-9][0-9]*:[1-9][0-9]*+:WWW daemon apache:/var/lib/wwwrun:/bin/false
+END_PASSWD
+        expect(subject.content.lines.sort.join).to match(passwd_match)
+      end
+    end
+
+    describe file('/etc/shadow') do
+      shadow_match = Regexp.new <<'END_SHADOW', [Regexp::MULTILINE]
+\Abin:\*:\d{5}::::::
+daemon:\*:\d{5}::::::
+ftp:\*:\d{5}::::::
+games:\*:\d{5}::::::
+lp:\*:\d{5}::::::
+mail:\*:\d{5}::::::
+man:\*:\d{5}::::::
+messagebus:!:\d{5}::::::
+news:\*:\d{5}::::::
+nobody:\*:\d{5}::::::
+ntp:!:\d{5}::::::
+pesign:!:\d{5}::::::
+polkitd:!:\d{5}::::::
+root:.+:\d{5}::::::
+rpc:!:\d{5}::::::
+sshd:!:\d{5}::::::
+syslog:!:\d{5}::::::
+systemd-bus-proxy:!!:\d{5}::::::
+systemd-timesync:!!:\d{5}::::::
+uucp:\*:\d{5}::::::
+vcap:.+:\d{5}:1:99999:7:::
+wwwrun:\*:\d{5}::::::\Z
+END_SHADOW
+
+      it "does not contain any password" do 
+        expect(subject.content.lines.sort.join).to match(shadow_match) 
+      end
+    end
+
+    describe file('/etc/group') do
+      it "does not contain any passwords" do
+        group_match = Regexp.new <<'END_GROUP', [Regexp::MULTILINE]
+adm:x:[1-9][0-9]*:vcap
+admin:x:[1-9][0-9]*:vcap
+audio:x:[1-9][0-9]*:vcap
+bin:x:[1-9][0-9]*:daemon
+bosh_sshers:x:[1-9][0-9]*:vcap
+bosh_sudoers:x:[1-9][0-9]*:
+cdrom:x:[1-9][0-9]*:vcap
+console:x:[1-9][0-9]*:
+daemon:x:[1-9][0-9]*:
+dialout:x:[1-9][0-9]*:vcap
+dip:x:[1-9][0-9]*:vcap
+disk:x:[1-9][0-9]*:
+floppy:x:[1-9][0-9]*:vcap
+ftp:x:[1-9][0-9]*:
+games:x:[1-9][0-9]*:
+input:x:[1-9][0-9]*:
+kmem:x:[1-9][0-9]*:
+lock:x:[1-9][0-9]*:
+lp:x:[1-9][0-9]*:
+mail:x:[1-9][0-9]*:
+man:x:[1-9][0-9]*:
+messagebus:x:[1-9][0-9]*:
+modem:x:[1-9][0-9]*:
+news:x:[1-9][0-9]*:
+nobody:x:[1-9][0-9]*:
+nogroup:x:[1-9][0-9]*:nobody
+ntp:x:[1-9][0-9]*:
+pesign:x:[1-9][0-9]*:
+polkitd:x:[1-9][0-9]*:
+public:x:[1-9][0-9]*:
+root:x:0:
+shadow:x:[1-9][0-9]*:
+sshd:x:[1-9][0-9]*:
+sys:x:[1-9][0-9]*:
+syslog:!:[1-9][0-9]*:
+systemd-bus-proxy:x:[1-9][0-9]*:
+systemd-journal:x:[1-9][0-9]*:
+systemd-timesync:x:[1-9][0-9]*:
+tape:x:[1-9][0-9]*:
+trusted:x:[1-9][0-9]*:
+tty:x:[1-9][0-9]*:
+users:x:[1-9][0-9]*:
+utmp:x:[1-9][0-9]*:
+uucp:x:[1-9][0-9]*:
+vcap:x:[1-9][0-9]*:syslog
+video:x:[1-9][0-9]*:vcap
+wheel:x:[1-9][0-9]*:vcap
+www:x:[1-9][0-9]*:
+xok:x:[1-9][0-9]*:
+END_GROUP
+        expect(subject.content.lines.sort.join).to match(group_match)
+      end
+    end
+
+    describe file('/etc/gshadow') do
+      it "does not contain any passwords" do
+         expected = <<HERE.lines
+systemd-timesync:!!::
+systemd-bus-proxy:!!::
+systemd-journal:!!::
+HERE
+        expect(subject.content.lines).to match_array(expected)
+      end
+    end
+  end
 end
+
