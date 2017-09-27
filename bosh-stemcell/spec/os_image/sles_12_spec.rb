@@ -101,8 +101,8 @@ describe 'SLES OS image', os_image: true do
     # not support it. SLES has had this capability since version 9
     describe file('/etc/os-release') do
       it 'should run an os that emulates or uses things' do
-        major_version = subject.content.match(/VERSION=.*?(\d+?)\.(\d+)/)[1].to_i
-        expect(major_version).to be >= 9
+        major_version = subject.content.match(/VERSION=[^\d]*(\d+).*/)[1].to_i
+        expect(major_version).to be >= 12
       end
     end
   end
