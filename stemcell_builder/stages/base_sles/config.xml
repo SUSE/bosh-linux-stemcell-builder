@@ -35,9 +35,6 @@
     <repository type="rpm-md" imageinclude="true" priority="1000">
       <source path="http://smt-internal.opensuse.org/repo/$RCE/SUSE/Updates/SLE-SDK/12-SP3/x86_64/update/"/>
     </repository>
-    <repository type="rpm-md" imageinclude="true" priority="1000">
-      <source path="http://download.opensuse.org/repositories/security:/apparmor/SLE_12/"/>
-    </repository>
     <repository type="rpm-md" imageinclude="true">
       <source path="http://download.opensuse.org/repositories/Cloud:/Platform:/SUSE-Stemcell/SLE_12_SP3/"/>
     </repository>
