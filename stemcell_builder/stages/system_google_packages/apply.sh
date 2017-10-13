@@ -39,6 +39,17 @@ then
 
   # Hack: replace google metadata hostname with ip address (bosh agent might set a dns that it's unable to resolve the hostname)
   run_in_chroot $chroot "sed -i 's/metadata.google.internal/169.254.169.254/g' /usr/lib/python2.7/site-packages/google_compute_engine/metadata_watcher.py"
+elif [ "${os_type}" == "sles" -o "${os_type}" == "opensuse" ]
+then
+  # Copy google daemon packages into chroot
+  cp -R $assets_dir/google-centos/*.rpm $chroot/tmp/google/
+
+  run_in_chroot $chroot "zypper install -y python-setuptools python-boto"
+
+  run_in_chroot $chroot "zypper --no-gpg-checks install -y /tmp/google/*.rpm"
+
+  # Hack: replace google metadata hostname with ip address (bosh agent might set a dns that it's unable to resolve the hostname)
+  run_in_chroot $chroot "sed -i 's/metadata.google.internal/169.254.169.254/g' /usr/lib/python2.7/site-packages/google_compute_engine/metadata_watcher.py"
 else
   echo "Unknown OS '${os_type}', exiting"
   exit 2
