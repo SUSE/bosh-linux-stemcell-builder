@@ -101,5 +101,7 @@
         <package name="xen-libs"/>
         <package name="xen-tools-domU"/>
         <package name="rsync"/>
+        <package name="lsof"/>
+        <package name="libnfs8"/>
     </packages>
 </image>
