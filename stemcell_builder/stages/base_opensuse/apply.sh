@@ -13,6 +13,7 @@ cp /etc/resolv.conf $chroot/etc/resolv.conf
 cp $assets_dir/runit.service $chroot/usr/lib/systemd/system/
 cp $assets_dir/dkms-2.2.0.3-16.1.noarch.rpm $chroot/tmp
 cp $assets_dir/ubuntu-certificates.run $chroot/usr/lib/ca-certificates/update.d/99x_ubuntu_certs.run
+chmod +x $chroot/usr/lib/ca-certificates/update.d/99x_ubuntu_certs.run
 
 dd if=/dev/urandom of=$chroot/var/lib/random-seed bs=512 count=1
 
